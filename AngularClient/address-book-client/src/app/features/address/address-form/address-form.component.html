@@ -1,0 +1,50 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="mb-0">Add New Address</h3>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="addressForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="name" class="form-label">Name *</label>
+              <input type="text" class="form-control" id="name" formControlName="name" [ngClass]="{'is-invalid': addressForm.get('name')?.invalid && 
+                                             addressForm.get('name')?.touched}">
+              <div class="invalid-feedback" *ngIf="addressForm.get('name')?.errors?.['required']">
+                Name is required
+              </div>
+              <div class="invalid-feedback" *ngIf="addressForm.get('name')?.errors?.['maxlength']">
+                Name cannot exceed 100 characters
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="addressLine" class="form-label">Address *</label>
+              <textarea class="form-control" id="addressLine" formControlName="addressLine" rows="3" [ngClass]="{'is-invalid': addressForm.get('addressLine')?.invalid && 
+                                                addressForm.get('addressLine')?.touched}">
+              </textarea>
+              <div class="invalid-feedback" *ngIf="addressForm.get('addressLine')?.errors?.['required']">
+                Address is required
+              </div>
+              <div class="invalid-feedback" *ngIf="addressForm.get('addressLine')?.errors?.['maxlength']">
+                Address cannot exceed 200 characters
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-between">
+              <button type="button" class="btn btn-secondary" routerLink="/addresses">
+                Cancel
+              </button>
+              <button type="submit" class="btn btn-primary" [disabled]="submitting || addressForm.invalid">
+                {{ submitting ? 'Saving...' : 'Save' }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-loading-spinner *ngIf="submitting"></app-loading-spinner>

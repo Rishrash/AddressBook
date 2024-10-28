@@ -1,0 +1,26 @@
+/* Custom global styles */
+body {
+  font-family: "Roboto", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.form-label.required::after {
+  content: " *";
+  color: red;
+}
+
+.toast-container {
+  margin-top: 60px;
+}
+
+.loading-spinner {
+  position: fixed;
+  z-index: 999;
+  height: 2em;
+  width: 2em;
+  overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}

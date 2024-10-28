@@ -1,0 +1,66 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Address List</h2>
+        <button class="btn btn-primary" routerLink="/address/new">
+          Add New Address
+        </button>
+      </div>
+
+      <div *ngIf="loading">
+        <app-loading-spinner></app-loading-spinner>
+      </div>
+
+      <div *ngIf="!loading && addresses.length === 0" class="alert alert-info">
+        No addresses found. Add your first address!
+      </div>
+
+      <div class="row g-4">
+        <div *ngFor="let address of addresses" class="col-md-6 col-lg-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">{{ address.name }}</h5>
+              <p class="card-text">{{ address.addressLine }}</p>
+              <small class="text-muted">
+                Created: {{ address.createdAt | date:'medium' }}
+              </small>
+            </div>
+            <div class="card-footer bg-transparent">
+              <button class="btn btn-outline-primary btn-sm" (click)="viewAddress(address.id!)">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Address Details Modal -->
+  <div class="modal fade" id="addressModal" tabindex="-1" [ngClass]="{'show': selectedAddress}"
+    [style.display]="selectedAddress ? 'block' : 'none'">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Address Details</h5>
+          <button type="button" class="btn-close" (click)="selectedAddress = null"></button>
+        </div>
+        <div class="modal-body" *ngIf="selectedAddress">
+          <dl class="row">
+            <dt class="col-sm-3">Name:</dt>
+            <dd class="col-sm-9">{{ selectedAddress.name }}</dd>
+
+            <dt class="col-sm-3">Address:</dt>
+            <dd class="col-sm-9">{{ selectedAddress.addressLine }}</dd>
+
+            <dt class="col-sm-3">Created:</dt>
+            <dd class="col-sm-9">
+              {{ selectedAddress.createdAt | date:'medium' }}
+            </dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
