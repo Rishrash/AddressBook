@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AddressBook.Infrastructure.Migrations
 {
     [DbContext(typeof(AddressBookDbContext))]
-    [Migration("20241024040530_InitialCreate")]
+    [Migration("20241026152043_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

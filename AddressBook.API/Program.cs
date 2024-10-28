@@ -9,7 +9,18 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add CORS policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularDevServer",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:4200")
+                  .AllowAnyMethod()
+                  .AllowAnyHeader()
+                  .AllowCredentials();
+        });
+});
 
 // Configure Serilog
 Log.Logger = new LoggerConfiguration()
@@ -73,8 +84,10 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-app.UseHttpsRedirection();
 app.UseCors("AllowAngularDevServer");
+
+app.UseHttpsRedirection();
+
 app.UseAuthorization();
 
 app.MapControllers();
